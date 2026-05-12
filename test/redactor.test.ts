@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 import { SyncRedactor } from '../src';
 
 const redactor = new SyncRedactor();
@@ -135,14 +137,8 @@ describe('index.js', function () {
   ]);
 
   TestCase('should replace street addresses', [
-    [
-      'I live at 123 Park Ave Apt 123 New York City, NY 10002',
-      'I live at STREET_ADDRESS New York City, NY ZIPCODE',
-    ],
-    [
-      'my address is 56 N First St NY 90210',
-      'my address is STREET_ADDRESS NY ZIPCODE',
-    ],
+    ['I live at 123 Park Ave Apt 123 New York City, NY 10002', 'I live at STREET_ADDRESS New York City, NY ZIPCODE'],
+    ['my address is 56 N First St NY 90210', 'my address is STREET_ADDRESS NY ZIPCODE'],
   ]);
 
   TestCase('should not replace street words in context', [
@@ -196,5 +192,4 @@ describe('index.js', function () {
     ['before http://www.example.com/foo/bar?foo=bar#/foo/bar after', 'before URL after'],
     ['My homepage is http://example.com\nAnd that is that.', 'My homepage is URL\nAnd that is that.'],
   ]);
-
 });

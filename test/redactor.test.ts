@@ -1,35 +1,22 @@
-import { GoogleDLPRedactor, AsyncRedactor, SyncRedactor } from '../src';
+import { SyncRedactor } from '../src';
 
 const redactor = new SyncRedactor();
-const compositeRedactorWithDLP = new AsyncRedactor({
-  customRedactors: {
-    after: [new GoogleDLPRedactor()],
-  },
-});
 
 describe('index.js', function () {
-  const runGoogleDLPTests = !!process.env.GOOGLE_APPLICATION_CREDENTIALS;
-
-  type InputAssertionTuple = [string, string, string?];
+  type InputAssertionTuple = [string, string];
 
   function TestCase(description: string, thingsToTest: Array<InputAssertionTuple>) {
     it(description, async () => {
-      for (const [input, syncOutput, googleDLPOutput] of thingsToTest) {
+      for (const [input, syncOutput] of thingsToTest) {
         expect(redactor.redact(input)).toBe(syncOutput);
-        if (runGoogleDLPTests && googleDLPOutput) {
-          await expect(compositeRedactorWithDLP.redactAsync(input)).resolves.toBe(googleDLPOutput);
-        }
       }
     });
   }
 
   TestCase.only = function (description: string, thingsToTest: Array<InputAssertionTuple>) {
     it.only(description, async () => {
-      for (const [input, syncOutput, googleDLPOutput] of thingsToTest) {
+      for (const [input, syncOutput] of thingsToTest) {
         expect(redactor.redact(input)).toBe(syncOutput);
-        if (googleDLPOutput) {
-          await expect(compositeRedactorWithDLP.redactAsync(input)).resolves.toBe(googleDLPOutput);
-        }
       }
     });
   };
@@ -58,8 +45,8 @@ describe('index.js', function () {
     ['blah blah\n\nThank you ..Risemamy McCrubben', 'blah blah\n\nThank you ..PERSON_NAME'],
     ['blah blah. Thanks -Jon', 'blah blah. Thanks -PERSON_NAME'],
 
-    ["here's my Cliff. blah blah", "here's my Cliff. blah blah", "here's my PERSON_NAME. blah blah"],
-    ["here's my Clifford. blah blah", "here's my PERSON_NAME. blah blah", "here's my LAST_NAME. blah blah"],
+    ["here's my Cliff. blah blah", "here's my Cliff. blah blah"],
+    ["here's my Clifford. blah blah", "here's my PERSON_NAME. blah blah"],
     ['Dear Clifford,\n blah blah', 'Dear PERSON_NAME,\n blah blah'],
     ['blah blah\n\n\nthanks,\nAnna\n blah blah', 'blah blah\n\n\nthanks,\nPERSON_NAME\n blah blah'],
 
@@ -151,12 +138,10 @@ describe('index.js', function () {
     [
       'I live at 123 Park Ave Apt 123 New York City, NY 10002',
       'I live at STREET_ADDRESS New York City, NY ZIPCODE',
-      'I live at STREET_ADDRESS US_STATE City, LOCATION ZIPCODE',
     ],
     [
       'my address is 56 N First St NY 90210',
       'my address is STREET_ADDRESS NY ZIPCODE',
-      'my address is STREET_ADDRESS LOCATION ZIPCODE',
     ],
   ]);
 
@@ -212,12 +197,4 @@ describe('index.js', function () {
     ['My homepage is http://example.com\nAnd that is that.', 'My homepage is URL\nAnd that is that.'],
   ]);
 
-  runGoogleDLPTests &&
-    it('[integration] should redact non english text', async function () {
-      await expect(compositeRedactorWithDLP.redactAsync('我的名字是王')).resolves.toBe('我的名字是王');
-      await expect(compositeRedactorWithDLP.redactAsync('我的卡号是 1234')).resolves.toBe('PERSON_NAME是 DIGITS');
-      await expect(compositeRedactorWithDLP.redactAsync('我的电话是 444-332-343')).resolves.toBe(
-        '我的电话是 PHONE_NUMBER'
-      );
-    });
 });

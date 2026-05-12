@@ -1,7 +1,6 @@
 # piiranha
 
 [![NPM Package](https://badge.fury.io/js/piiranha.svg)](https://www.npmjs.com/package/piiranha)
-[![Dependencies](https://david-dm.org/NointidWorks/piiranha.svg)](https://david-dm.org/NointidWorks/piiranha)
 
 Remove personally identifiable information from text.
 

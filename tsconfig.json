@@ -3,7 +3,6 @@
     "target": "es2016",
     "module": "commonjs",
     "moduleResolution": "node",
-    "ignoreDeprecations": "6.0",
     "strict": true,
     "esModuleInterop": false,
     "declaration": true,

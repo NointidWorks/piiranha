@@ -1,5 +1,5 @@
 {
-  "name": "redact-pii",
+  "name": "piiranha",
   "version": "3.4.0",
   "description": "Remove personally identifiable information from text.",
   "main": "lib/index.js",
@@ -15,9 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/solvvy/redact-pii.git"
+    "url": "https://github.com/NointidWorks/piiranha.git"
   },
   "author": "Christian Theilemann <christian@solvvy.com>",
+  "maintainers": [
+    {
+      "name": "Omar Samuels",
+      "email": "2964789+odsamuels@users.noreply.github.com"
+    }
+  ],
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.21"

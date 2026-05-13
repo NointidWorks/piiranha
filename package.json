@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NointidWorks/piiranha.git"
+    "url": "git+https://github.com/NointidWorks/piiranha.git"
   },
   "author": "Christian Theilemann <christian@solvvy.com>",
   "maintainers": [

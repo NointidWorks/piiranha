@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+branch_name="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch_name" = "main" ]; then
+  echo ""
+  echo "[blocked] Direct commits to 'main' are not allowed in this repo."
+  echo "Create a feature branch and open a PR instead."
+  echo ""
+  echo "Example:"
+  echo "  git switch -c your-branch-name"
+  echo ""
+  echo "If you absolutely must bypass locally, run once with:"
+  echo "  ALLOW_MAIN_COMMIT=1 git commit ..."
+  echo ""
+
+  if [ "$ALLOW_MAIN_COMMIT" != "1" ]; then
+    exit 1
+  fi
+fi
+
+exit 0

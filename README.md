@@ -154,6 +154,16 @@ const redactor = new SyncRedactor({
 
 ### Contributing
 
+#### Enable local git hooks
+
+To block direct local commits to the `main` branch, run:
+
+```sh
+npm run setup-hooks
+```
+
+This configures `core.hooksPath` to use the committed hooks in `.githooks/`.
+
 #### Run tests
 
 You can run the tests via `npm run test`.

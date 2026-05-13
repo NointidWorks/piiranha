@@ -168,7 +168,7 @@ This configures `core.hooksPath` to use the committed hooks in `.githooks/`.
 
 Before a PR can be merged to `main`:
 
-- **Code owner review** — A maintainer (@odsamuels) must approve the PR
+- **Code owner review** — A maintainer must approve the PR
 - **Passing tests** — All automated checks must pass:
   - TypeScript type checking
   - Jest unit tests (Node.js 18.x and 20.x)

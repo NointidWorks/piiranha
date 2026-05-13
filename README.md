@@ -164,6 +164,19 @@ npm run setup-hooks
 
 This configures `core.hooksPath` to use the committed hooks in `.githooks/`.
 
+#### Pull Request requirements
+
+Before a PR can be merged to `main`:
+
+- **Code owner review** — A maintainer (@odsamuels) must approve the PR
+- **Passing tests** — All automated checks must pass:
+  - TypeScript type checking
+  - Jest unit tests (Node.js 18.x and 20.x)
+  - Prettier code formatting
+- **Stale reviews dismissed** — If you push new commits after approval, the review is dismissed and must be re-approved
+
+These checks ensure code quality and prevent regressions.
+
 #### Branch naming convention
 
 For non-main branches, commits are allowed only when branch names match:

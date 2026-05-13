@@ -1,6 +1,6 @@
 # piiranha
 
-[![NPM Package](https://badge.fury.io/js/piiranha.svg?icon=si%3Anpm)](https://www.npmjs.com/package/piiranha)
+[![NPM Package](https://badge.fury.io/js/piiranha.png)](https://www.npmjs.com/package/piiranha)
 
 Remove personally identifiable information from text.
 

@@ -8,7 +8,7 @@
     "build": "del lib && tsc --pretty",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run verify_all && npm run build",
-    "publish": "npm whoami && npm version patch && git push --follow-tags && npm publish",
+    "release-package": "npm whoami && npm version patch && git push --follow-tags && npm publish",
     "verify_all": "npm run typecheck && npm test && npm run test_prettier",
     "test": "jest",
     "test_prettier": "prettier './+(src|test)/**/*.+(js|ts|tsx)' --list-different",

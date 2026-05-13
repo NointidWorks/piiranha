@@ -6,6 +6,7 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "build": "del lib && tsc --pretty",
+    "setup-hooks": "./scripts/setup-hooks.sh",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run verify_all && npm run build",
     "release-package": "npm whoami && npm version patch && git push --follow-tags && npm publish",

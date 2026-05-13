@@ -9,7 +9,7 @@
     "setup-hooks": "./scripts/setup-hooks.sh",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run verify_all && npm run build",
-    "release-package": "npm whoami && npm version patch && git push --follow-tags && npm publish",
+    "release:patch": "npm whoami && npm version patch && git push --follow-tags && npm publish",
     "verify_all": "npm run typecheck && npm test && npm run test_prettier",
     "test": "jest",
     "test_prettier": "prettier './+(src|test)/**/*.+(js|ts|tsx)' --list-different",

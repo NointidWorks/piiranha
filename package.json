@@ -1,6 +1,6 @@
 {
   "name": "piiranha",
-  "version": "3.5.6",
+  "version": "3.5.7",
   "description": "Remove personally identifiable information from text.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -9,6 +9,7 @@
     "setup-hooks": "./scripts/setup-hooks.sh",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run verify_all && npm run build",
+    "release": "npm whoami && git push --follow-tags && npm publish",
     "release:patch": "npm whoami && npm version patch && git push --follow-tags && npm publish",
     "verify_all": "npm run typecheck && npm test && npm run test_prettier",
     "test": "jest",

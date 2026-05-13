@@ -164,6 +164,37 @@ npm run setup-hooks
 
 This configures `core.hooksPath` to use the committed hooks in `.githooks/`.
 
+#### Branch naming convention
+
+For non-main branches, commits are allowed only when branch names match:
+
+```text
+<owner>/<type>/<description>
+```
+
+Allowed `type` values:
+
+- feat
+- fix
+- chore
+- docs
+- refactor
+- test
+- ci
+- build
+- perf
+- style
+
+Examples:
+
+- `odsamuels/chore/setup-hooks`
+- `alice/feat/redaction-pipeline`
+
+Automation branches are also allowed:
+
+- `dependabot/*`
+- `renovate/*`
+
 #### Run tests
 
 You can run the tests via `npm run test`.

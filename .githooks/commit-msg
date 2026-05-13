@@ -1,0 +1,44 @@
+#!/usr/bin/env sh
+
+# Enforce branch naming for non-main branches.
+branch_name="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch_name" = "main" ]; then
+  exit 0
+fi
+
+# Allowed branch patterns:
+# - <owner>/<type>/<description>
+# - dependabot/*
+# - renovate/*
+branch_pattern='^[a-z0-9._-]+/(feat|fix|chore|docs|refactor|test|ci|build|perf|style)/[a-z0-9][a-z0-9._-]*$'
+
+case "$branch_name" in
+  dependabot/*|renovate/*)
+    exit 0
+    ;;
+esac
+
+if printf '%s' "$branch_name" | grep -Eq "$branch_pattern"; then
+  exit 0
+fi
+
+echo ""
+echo "[blocked] Invalid branch name: $branch_name"
+echo ""
+echo "Use this format for non-main branches:"
+echo "  <owner>/<type>/<description>"
+echo ""
+echo "Allowed <type> values:"
+echo "  feat, fix, chore, docs, refactor, test, ci, build, perf, style"
+echo ""
+echo "Examples:"
+echo "  odsamuels/chore/setup-hooks"
+echo "  alice/feat/redaction-pipeline"
+echo ""
+
+echo "To rename current branch:"
+echo "  git branch -m <new-branch-name>"
+echo ""
+
+exit 1

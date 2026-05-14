@@ -6,16 +6,27 @@ Remove personally identifiable information from text.
 
 > This package is published on npm as [piiranha](https://www.npmjs.com/package/piiranha) and is maintained as a fork of the original [solvvy/redact-pii](https://github.com/solvvy/redact-pii) package.
 
-### Prerequesites
+### Prerequisites
 
-This library is primarily written for node.js but it should work in the browser as well.
-It is written in TypeScript and compiles to ES2017. The library makes use of `async` functions and hence needs node.js 8.0.0 or higher (or a modern browser).
+This library is primarily written for Node.js, but also works in the browser with compatible tooling/runtime (such as Vite, Webpack, Rollup, Parcel, esbuild). A transpiler/build setup such as TypeScript compiler, Babel, or both, can be used to target older browser support.
+It is written in TypeScript and currently compiles to ES2016.
+The project is tested in CI on Node.js 18.x and 20.x.
 
 ### Simple example (synchronous API)
 
 ```
 npm install piiranha
 ```
+
+```js
+import { SyncRedactor } from 'piiranha';
+const redactor = new SyncRedactor();
+const redactedText = redactor.redact('Hi David Johnson, Please give me a call at 555-555-5555');
+// Hi NAME, Please give me a call at PHONE_NUMBER
+console.log(redactedText);
+```
+
+CommonJS equivalent:
 
 ```js
 const { SyncRedactor } = require('piiranha');
@@ -28,7 +39,7 @@ console.log(redactedText);
 ### Simple example (asynchronous / promise-based API)
 
 ```js
-const { AsyncRedactor } = require('piiranha');
+import { AsyncRedactor } from 'piiranha';
 const redactor = new AsyncRedactor();
 redactor.redactAsync('Hi David Johnson, Please give me a call at 555-555-5555').then((redactedText) => {
   // Hi NAME, Please give me a call at PHONE_NUMBER
@@ -61,7 +72,7 @@ redactor.redactAsync('Hi David Johnson, Please give me a call at 555-555-5555').
 ### Customize replacement values
 
 ```js
-const { SyncRedactor } = require('piiranha');
+import { SyncRedactor } from 'piiranha';
 
 // use a single replacement value for all built-in patterns found.
 const redactor = new SyncRedactor({ globalReplaceWith: 'TOP_SECRET' });
@@ -86,7 +97,7 @@ redactor.redact('Dear David Johnson');
 Note that the order of redaction rules matters, therefore you have to decide whether you want your custom redaction rules to run `before` or `after` the built-in ones. Generally it's better to put very specialized patterns or functions `before` the built-in ones and more broad / general ones `after`.
 
 ```js
-const { SyncRedactor } = require('piiranha');
+import { SyncRedactor } from 'piiranha';
 
 // add a custom regexp pattern
 const redactor = new SyncRedactor({
